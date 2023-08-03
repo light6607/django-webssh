@@ -45,7 +45,7 @@ class SSH:
             self.channel.invoke_shell()
 
             for i in range(2):
-                recv = self.channel.recv(1024).decode('utf-8')
+                recv = self.channel.recv(1024).decode('utf-8',errors='ignore')
                 self.message['status'] = 0
                 self.message['message'] = recv
                 message = json.dumps(self.message)
@@ -112,7 +112,7 @@ class SSH:
                         self.zmodem = True
                         self.websocker.send(bytes_data=data)
                     else:
-                        data = data.decode('utf-8')
+                        data = data.decode('utf-8',errors='ignore')
                         self.message['status'] = 0
                         self.message['message'] = data
                         self.res += data
